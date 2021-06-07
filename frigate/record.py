@@ -89,8 +89,10 @@ class RecordingMaintainer(threading.Thread):
                 os.makedirs(directory)
 
             file_name = f"{start_time.strftime('%M.%S.mp4')}"
+            file_fullname = os.path.join(directory,file_name)
 
-            os.rename(os.path.join(RECORD_DIR,f), os.path.join(directory,file_name))
+            os.rename(os.path.join(RECORD_DIR,f), file_fullname)
+            os.chmod(file_fullname, 0o775)
 
     def expire_files(self):
         delete_before = {}
